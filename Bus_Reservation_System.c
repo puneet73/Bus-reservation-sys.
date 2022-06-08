@@ -3,21 +3,21 @@
 #include <string.h>
 
 
-char ch[10][130]={"Cardiff Express","Belfast Express","Derby Express","Chester Express","Newport Express","Truro Express"};
+char ch[10][130]={"Cardiff Express"};
 char name[32][100]={'\0'};
 char number[32][2]={'\0'};
 int num1[32]={0};
 int tr_no;
 
-
-void bus();//for list of bus
+getch();
+void bus();
+void login();
 void name_number(int booking,char numstr[100]);
 void booking();//for booking the tickets
 int read_number(int tr_no);//for reading the number from the file
 void read_name(int tr_no);//for reading the name from the file
 void status();//for printing the status by user input
 void status_1(int tr_no);//for printing the status while booking ticket
-void cancel();
 
 
 int main()
@@ -28,15 +28,13 @@ int main()
     system("cls");
     printf("\n\n\n");
     printf("====================================== WELCOME TO BUS RESERVATION SYSTEM ======================================\n\n\n");
-    printf("\t\t\t\t\t[1]=> View Bus List\n");
+    printf("\t\t\t\t\t[1]=> View Bus\n");
     printf("\n");
     printf("\t\t\t\t\t[2]=> Book Tickets\n");
     printf("\n");
-    printf("\t\t\t\t\t[3]=> Cancel Booking\n");
+    printf("\t\t\t\t\t[3]=> Bus Status Board\n");
     printf("\n");
-    printf("\t\t\t\t\t[4]=> Bus Status Board\n");
-    printf("\n");
-    printf("\t\t\t\t\t[5]=> Exit\n\n");
+    printf("\t\t\t\t\t[4]=> Exit\n\n");
     printf("===============================================================================================================\n\n");
     printf("\t\t\tEnter Your Choice:: ");
     scanf("%d",&num);
@@ -49,19 +47,14 @@ int main()
         booking();//for booking the tickets
         break;
     case 3:
-        cancel();
-        break;
-    case 4:
         status();
         break;
     }
 getch();
     }while(num != 5);
-    system("CLS");
+    system("cls");
     printf("\t----------------------------------------------------------------------------------------------------------\n");
     printf("\t\t\t\t\tThank You For Using This System\t\t\t\t\t\t\n");
-    printf("\t----------------------------------------------------------------------------------------------------------\n");
-    printf("\t\t\t Brought To You By code-projects.org");
     getch();
     return 0;
 }
@@ -74,13 +67,7 @@ void bus()
     printf("=========================================== BUS RESERVATION SYSTEM ============================================\n\n\n");
     printf("\t\t\t\t\t[1]  =>  %s\n",ch[0]);
     printf("\n");
-    printf("\t\t\t\t\t[2]  =>  %s\n",ch[1]);
-    printf("\n"); 
-	printf("\t\t\t\t\t[3]  =>  %s\n",ch[2]);
-    printf("\n"); 
-	printf("\t\t\t\t\t[4]  =>  %s\n",ch[3]);
-    printf("\n"); 
-	printf("\t\t\t\t\t[5]  =>  %s\n",ch[4]);
+
 }
 
 void booking()
@@ -95,7 +82,7 @@ printf("Enter the Bus number:--->");
 scanf("%d",&tr_no);
 system("cls");
 printf("=========================================== BUS RESERVATION SYSTEM ============================================\n\n\n");//for selecting coach
-printf("Your Bus Number is %d ********** %s",tr_no,ch[tr_no-1]);
+printf("Your Bus Number is %d ********** %s",tr_no,ch[0]);
 status_1(tr_no);
 
     FILE *f1, *fopen();//for reading the seats from the user.
@@ -308,7 +295,7 @@ printf("=========================================== BUS RESERVATION SYSTEM =====
 
 void status_1(int tr_no)
 {
-    printf("Your Bus Number is %d ********** %s",tr_no,ch[tr_no-1]);
+    printf("Your Bus Number is %d ********** %s",tr_no,ch[0]);
     system("cls");
 printf("=========================================== BUS RESERVATION SYSTEM ============================================\n\n\n");
     int i,index=0,j;
@@ -329,51 +316,7 @@ printf("=========================================== BUS RESERVATION SYSTEM =====
             }
             printf("\n");
 }
-}
 
-
-void cancel()
-{
- int seat_no,i,j;
- char numstr[100],tempstr2[15]="number",tempstr1[15]="status";
- printf("Enter the bus number:---->");
- scanf("%d",&tr_no);
- itoa(tr_no,numstr,10);
- strcat(numstr,".txt");
- strcat(tempstr1,numstr);
- strcat(tempstr2,numstr);
- read_number(tr_no);
- read_name(tr_no);
- status_1(tr_no);
- printf("Enter the seat number:--->");
- scanf("%d",&seat_no);
- FILE *a,*b;
- a = fopen(tempstr1,"w+");
- b = fopen(tempstr2,"w+");
- for(i=0; i<32; i++)
- {
-     if(num1[i] == seat_no)
-     {
-         for(j=0; j<32; j++)
-         {
-             if(num1[j] != seat_no && num1[j] != 0)
-             {
-                 fprintf(b,"%d ",num1[j]);
-                 fprintf(a,"%s",name[j]);
-             }
-             else if(num1[j] == seat_no && num1[j] != 0)
-             {
-                 strcpy(name[j],"Empty ");
-             }
-         }
-     }
- }
-fclose(a);
-fclose(b);
-printf("\n\n");
-    printf("======================================================================================================\n");
- printf("\t\t\t\tYour 200 rupees has been Returned\t\t\t\n");
-    printf("======================================================================================================\n");
 }
 
 
